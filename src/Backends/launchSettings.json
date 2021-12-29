@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "composeLaunchAction": "None",
+      "composeLaunchServiceName": "productioncontrol.apigateways",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "productioncontrol.apigateways": "StartDebugging",
+        "productioncontrol.orders": "StartDebugging"
+      }
+    }
+  }
+}

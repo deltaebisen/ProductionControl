@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>7b85ec8f-b7f9-4697-84be-5c5034d3f822</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="Ocelot" Version="17.0.1" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties ocelot_1json__JsonSchema="https://json.schemastore.org/stylelintrc.json" /></VisualStudio></ProjectExtensions>
+
+</Project>

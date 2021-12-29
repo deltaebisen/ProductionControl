@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  productioncontrol.apigateways:
+    image: ${DOCKER_REGISTRY-}productioncontrolapigateways
+    container_name: productioncontrol.apigateways
+    hostname: productioncontrol.apigateways
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+
+  productioncontrol.orders:
+    image: ${DOCKER_REGISTRY-}productioncontrolorders
+    container_name: productioncontrol.orders
+    hostname: productioncontrol.orders
+    build:
+      context: .
+      dockerfile: ProductionControl.Order/Dockerfile
+

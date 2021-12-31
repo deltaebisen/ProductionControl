@@ -1,0 +1,42 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/Departments/{action}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "masters",
+                    "Port": 1000
+                }
+            ],
+            "UpstreamPathTemplate": "/api/Departments/{action}",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/Orders/{action}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "orders",
+                    "Port": 2000
+                }
+            ],
+            "UpstreamPathTemplate": "/api/Orders/{action}",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/todos/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "jsonplaceholder.typicode.com",
+                    "Port": 443
+                }
+            ],
+            "UpstreamPathTemplate": "/todos/{id}",
+            "UpstreamHttpMethod": [ "Get" ]
+        }
+    ],
+    "GlobalConfiguration": {
+    }
+}

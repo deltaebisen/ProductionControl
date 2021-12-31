@@ -1,27 +1,27 @@
 version: '3.4'
 
 services:
-  productioncontrol.apigateways:
+  apigateways:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=https://+:8081;http://+:8080
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:8080"
+      - "8081:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-  productioncontrol.orders:
+  masters:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:1000
+    ports:
+      - "1000:1000"
+  orders:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:2000
     ports:
       - "2000:2000"
 
-
-  masters:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "80"
 

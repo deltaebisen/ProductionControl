@@ -1,31 +1,4 @@
 {
-  "Routes": [
-    {
-      "DownstreamPathTemplate": "/swagger",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "productioncontrol.orders",
-          "Port": 2000
-        }
-      ],
-      "UpstreamPathTemplate": "/swagger",
-      "UpstreamHttpMethod": [ "Get" ]
-    },
-    {
-      "DownstreamPathTemplate": "/WeatherForecast",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "productioncontrol.orders",
-          "Port": 2000
-        }
-      ],
-      "UpstreamPathTemplate": "/WeatherForecast",
-      "UpstreamHttpMethod": [ "Get" ]
-    }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:443"
-  }
+    "Routes": [],
+    "GlobalConfiguration": {}
 }

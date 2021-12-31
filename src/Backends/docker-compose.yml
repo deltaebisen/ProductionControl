@@ -7,7 +7,7 @@ services:
     hostname: productioncontrol.apigateways
     build:
       context: .
-      dockerfile: ApiGateway/Dockerfile
+      dockerfile: src/Backends/Services/ApiGateway/Dockerfile
 
   productioncontrol.orders:
     image: ${DOCKER_REGISTRY-}productioncontrolorders
@@ -15,5 +15,14 @@ services:
     hostname: productioncontrol.orders
     build:
       context: .
-      dockerfile: ProductionControl.Order/Dockerfile
+      dockerfile: src/Backends/Services/Order/Dockerfile
+
+
+  #productioncontrol.masters:
+  #  image: ${DOCKER_REGISTRY-}productioncontrolmasters
+  #  container_name: productioncontrol.masters
+  #  hostname: productioncontrol.masters
+  #  build:
+  #    context: ../..
+  #    dockerfile: src/Backends/Services/Masters/Dockerfile
 

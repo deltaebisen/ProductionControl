@@ -2,21 +2,21 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
+EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["ApiGateway/ProductionControl.ApiGateways.csproj", "ApiGateway/"]
-RUN dotnet restore "ApiGateway/ProductionControl.ApiGateways.csproj"
+COPY ["src/Backends/ApiGateway/ApiGateways.csproj", "src/Backends/ApiGateway/"]
+RUN dotnet restore "src/Backends/ApiGateway/ApiGateways.csproj"
 COPY . .
-WORKDIR "/src/ApiGateway"
-RUN dotnet build "ProductionControl.ApiGateways.csproj" -c Release -o /app/build
+WORKDIR "/src/src/Backends/ApiGateway"
+RUN dotnet build "ApiGateways.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "ProductionControl.ApiGateways.csproj" -c Release -o /app/publish
+RUN dotnet publish "ApiGateways.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ProductionControl.ApiGateways.dll"]
+ENTRYPOINT ["dotnet", "ApiGateways.dll"]

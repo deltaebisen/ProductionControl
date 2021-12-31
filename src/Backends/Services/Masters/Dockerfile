@@ -2,21 +2,21 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 2000
+EXPOSE 1000
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/Backends/Services/Orders/Orders.csproj", "src/Backends/Services/Orders/"]
+COPY ["src/Backends/Services/Masters/Masters.csproj", "src/Backends/Services/Masters/"]
 COPY ["src/Backends/BasicBuildingBlocks/BasicBuildingBlocks.csproj", "src/Backends/BasicBuildingBlocks/"]
-RUN dotnet restore "src/Backends/Services/Orders/Orders.csproj"
+RUN dotnet restore "src/Backends/Services/Masters/Masters.csproj"
 COPY . .
-WORKDIR "/src/src/Backends/Services/Orders"
-RUN dotnet build "Orders.csproj" -c Release -o /app/build
+WORKDIR "/src/src/Backends/Services/Masters"
+RUN dotnet build "Masters.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Orders.csproj" -c Release -o /app/publish
+RUN dotnet publish "Masters.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Orders.dll"]
+ENTRYPOINT ["dotnet", "Masters.dll"]

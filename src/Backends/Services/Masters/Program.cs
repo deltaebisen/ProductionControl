@@ -1,10 +1,9 @@
-using Microsoft.OpenApi.Models;
-using Orders.Infrastructures;
-using Orders.Models;
+using Masters.Infrastructures;
+using Masters.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 // Add services to the container.
 builder.WebHost.ConfigureAppConfiguration((hostingContext, config) =>
@@ -18,10 +17,8 @@ builder.WebHost.ConfigureAppConfiguration((hostingContext, config) =>
        .Build();
 
 });
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-
 builder.Services.AddControllers();
-
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
@@ -30,10 +27,20 @@ builder.Services.AddSwaggerGen(option =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     option.IncludeXmlComments(xmlPath);
 });
+
+
+builder.Services.AddDbContext<MasterDbContext>(options =>
+{
+    options.EnableSensitiveDataLogging();
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MastersContext"));
+});
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if ( app.Environment.IsDevelopment() )
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -44,9 +51,10 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
 app.UseAuthorization();
 
 app.MapControllers();
+
+DbInitializer.CreateDbIfNotExists(app);
 
 app.Run();

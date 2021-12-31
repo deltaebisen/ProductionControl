@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  apigateways:
+    image: ${DOCKER_REGISTRY-}apigateways
+    container_name: apigateways
+    hostname: apigateways
+    build:
+      context: .
+      dockerfile: src/Backends/ApiGateway/Dockerfile
+
+  orders:
+    image: ${DOCKER_REGISTRY-}orders
+    container_name: orders
+    hostname: orders
+    build:
+      context: .
+      dockerfile: src/Backends/Services/Orders/Dockerfile
+
+
+  masters:
+    image: ${DOCKER_REGISTRY-}masters
+    container_name: masters
+    hostname: masters
+    build:
+      context: .
+      dockerfile: src/Backends/Services/Masters/Dockerfile
+
+  mastersdb:
+    image: postgres:13.4
+    container_name: masters.db
+    hostname: masters.db
+    ports:
+      - 5432:5432
+    #volumes:
+    #  - ./postgres/init:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    restart: always
+    user: root
